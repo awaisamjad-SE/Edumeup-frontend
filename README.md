@@ -66,7 +66,7 @@ Uses IPInfo API to automatically detect user's country for accurate pricing.
 
 ```javascript
 // Configured in .env
-VITE_IPINFO_TOKEN=7d863e1849ce97
+VITE_IPINFO_TOKEN=your_token_here
 VITE_ENABLE_COUNTRY_HEADER=true
 
 // Automatically sends X-Country-Code header with every API request
