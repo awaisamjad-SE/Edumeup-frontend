@@ -1,0 +1,205 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:wght@400;500;600;700&display=swap');
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 224 76% 48%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 188 86% 37%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+
+    --accent: 38 92% 50%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 160 84% 39%;
+    --success-foreground: 0 0% 100%;
+
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 224 76% 48%;
+
+    --radius: 0.75rem;
+
+    /* Landing page specific */
+    --deep-blue: 224 76% 48%;
+    --deep-blue-dark: 224 64% 33%;
+    --navy: 210 29% 17%;
+    --navy-dark: 222 47% 11%;
+    --teal: 188 86% 37%;
+    --light-blue-bg: 210 100% 97%;
+    --light-blue-surface: 214 95% 93%;
+    --gold: 38 92% 50%;
+    --green: 160 84% 39%;
+    --orange: 24 95% 53%;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 222 47% 11%;
+    --foreground: 210 40% 98%;
+    --card: 222 47% 11%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222 47% 11%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 224 76% 48%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 188 86% 37%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 217 33% 18%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 38 92% 50%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217 33% 18%;
+    --input: 217 33% 18%;
+    --ring: 213 27% 84%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224 76% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217 91% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Open Sans', system-ui, sans-serif;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Montserrat', system-ui, sans-serif;
+  }
+}
+
+@layer utilities {
+  .section-padding {
+    @apply py-16 md:py-20;
+  }
+
+  .section-padding-lg {
+    @apply py-20 md:py-24;
+  }
+
+  .bg-light-blue {
+    background-color: hsl(var(--light-blue-bg));
+  }
+
+  .bg-light-blue-surface {
+    background-color: hsl(var(--light-blue-surface));
+  }
+
+  .bg-deep-blue {
+    background-color: hsl(var(--deep-blue));
+  }
+
+  .bg-navy {
+    background-color: hsl(var(--navy));
+  }
+
+  .bg-navy-dark {
+    background-color: hsl(var(--navy-dark));
+  }
+
+  .text-deep-blue {
+    color: hsl(var(--deep-blue));
+  }
+
+  .text-gold {
+    color: hsl(var(--gold));
+  }
+
+  .text-green {
+    color: hsl(var(--green));
+  }
+
+  .border-gold {
+    border-color: hsl(var(--gold));
+  }
+
+  .border-green {
+    border-color: hsl(var(--green));
+  }
+
+  .border-deep-blue {
+    border-color: hsl(var(--deep-blue));
+  }
+
+  .bg-gold {
+    background-color: hsl(var(--gold));
+  }
+
+  .bg-green {
+    background-color: hsl(var(--green));
+  }
+
+  .bg-green-light {
+    background-color: hsl(160 84% 95%);
+  }
+
+  .gradient-hero {
+    background: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(210 100% 97%) 100%);
+  }
+
+  .gradient-cta {
+    background: linear-gradient(135deg, hsl(224 76% 48%) 0%, hsl(224 64% 33%) 100%);
+  }
+
+  .gradient-light {
+    background: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(210 100% 97%) 100%);
+  }
+
+  .card-lift {
+    @apply transition-all duration-300;
+  }
+  .card-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px -8px hsl(224 76% 48% / 0.15);
+  }
+
+  .glass-dark {
+    background: hsl(0 0% 100% / 0.1);
+    border: 2px solid hsl(0 0% 100% / 0.3);
+  }
+
+  .glass-header {
+    background: hsl(0 0% 100% / 0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid hsl(var(--border));
+  }
+}
