@@ -11,6 +11,7 @@ import { createOrder, validateCoupon } from '@/lib/api/payments';
 import { autoRegisterGuest, login } from '@/lib/api/auth';
 import { tokenStore } from '@/lib/api/client';
 import { useToast } from '@/hooks/use-toast';
+import { formatPrice } from '@/lib/utils';
 
 const Checkout = () => {
   const { items, total, clearCart, refresh, loading, syncGuestCartToServer } = useCartStore();
@@ -177,12 +178,16 @@ const Checkout = () => {
                   {items.map(item => (
                     <div key={item.course.id} className="flex justify-between text-muted-foreground">
                       <span className="truncate pr-4">{item.course.title}</span>
-                      <span className="font-medium text-foreground flex-shrink-0">${item.course.price}</span>
+                      <span className="font-medium text-foreground flex-shrink-0">
+                        {formatPrice(item.course.displayPrice ?? item.course.price, item.course.displayCurrency)}
+                      </span>
                     </div>
                   ))}
                   <div className="border-t border-border pt-2 mt-2 flex justify-between">
                     <span className="font-bold text-foreground">Total</span>
-                    <span className="font-bold text-foreground text-lg">${total().toFixed(2)}</span>
+                    <span className="font-bold text-foreground text-lg">
+                      {formatPrice(total(), items[0]?.course.displayCurrency)}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -195,7 +200,7 @@ const Checkout = () => {
                 disabled={processing || !isValid}
               >
                 <CreditCard className="h-4 w-4" />
-                {processing ? 'Processing...' : `Pay $${total().toFixed(2)} via ${paymentMethods.find(m => m.id === paymentMethod)?.label}`}
+                {processing ? 'Processing...' : `Pay ${formatPrice(total(), items[0]?.course.displayCurrency)} via ${paymentMethods.find(m => m.id === paymentMethod)?.label}`}
               </Button>
             </motion.div>
           )}

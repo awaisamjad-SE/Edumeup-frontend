@@ -5,6 +5,9 @@ export interface Course {
   shortDescription: string;
   price: number;
   originalPrice?: number;
+  displayPrice?: number;
+  displayCurrency?: string;
+  pricingCountry?: string;
   image: string;
   category: string;
   level: 'Beginner' | 'Intermediate' | 'Advanced';

@@ -53,6 +53,19 @@ export const toCurriculumSections = (data: unknown): CurriculumSection[] => {
 
 export const toCourse = (data: unknown): Course => {
   const record = (data || {}) as Record<string, unknown>;
+  
+  // Debug: Log pricing information from API
+  if (record.display_currency || record.display_price) {
+    console.log('📊 Course Pricing Data:', {
+      id: record.id,
+      title: record.title,
+      price: record.price,
+      display_price: record.display_price,
+      display_currency: record.display_currency,
+      pricing_country: record.pricing_country,
+    });
+  }
+  
   const categoryValue = record.category as Record<string, unknown> | string | undefined;
   const instructorValue = record.instructor as Record<string, unknown> | string | undefined;
   const curriculum = Array.isArray(record.curriculum) ? toCurriculumSections(record.curriculum) : [];
@@ -72,6 +85,9 @@ export const toCourse = (data: unknown): Course => {
     shortDescription: toString(record.short_description, toString(record.description, '')),
     price: toNumber(record.price, 0),
     originalPrice: record.original_price ? toNumber(record.original_price, 0) : undefined,
+    displayPrice: record.display_price ? toNumber(record.display_price) : undefined,
+    displayCurrency: record.display_currency ? toString(record.display_currency) : undefined,
+    pricingCountry: record.pricing_country ? toString(record.pricing_country) : undefined,
     image: toString(record.image, ''),
     category: typeof categoryValue === 'string' ? categoryValue : toString(categoryValue?.name, 'General'),
     level: toLevel(record.level),

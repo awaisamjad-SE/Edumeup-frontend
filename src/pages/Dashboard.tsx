@@ -11,6 +11,7 @@ import { Enrollment, User } from '@/lib/types';
 import { getMoodleSsoUrl, getMyEnrollments, getMyProfile } from '@/lib/api';
 import { getMyPayments } from '@/lib/api/payments';
 import { useToast } from '@/hooks/use-toast';
+import { formatPrice } from '@/lib/utils';
 
 interface Payment {
   id: string | number;
@@ -19,6 +20,7 @@ interface Payment {
   gateway: string;
   created_at: string;
   order_items?: Array<{ course_title?: string }>;
+  currency?: string;
 }
 
 const Dashboard = () => {
@@ -320,7 +322,9 @@ const Dashboard = () => {
                             )}
                           </div>
                           <div className="text-right">
-                            <div className="text-2xl font-bold text-foreground">${payment.amount}</div>
+                            <div className="text-2xl font-bold text-foreground">
+                              {formatPrice(Number(payment.amount), payment.currency)}
+                            </div>
                           </div>
                         </div>
                       </motion.div>

@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import { useCartStore } from '@/lib/cart-store';
 import { motion } from 'framer-motion';
 import { useEffect } from 'react';
+import { formatPrice } from '@/lib/utils';
 
 const Cart = () => {
   const { items, removeItem, clearCart, total, refresh, loading, error } = useCartStore();
@@ -80,8 +81,14 @@ const Cart = () => {
                   <p className="text-xs text-muted-foreground">{item.course.instructor}</p>
                 </div>
                 <div className="text-right flex-shrink-0">
-                  <div className="font-bold text-foreground">${item.course.price}</div>
-                  {item.course.originalPrice && <div className="text-xs text-muted-foreground line-through">${item.course.originalPrice}</div>}
+                  <div className="font-bold text-foreground">
+                    {formatPrice(item.course.displayPrice ?? item.course.price, item.course.displayCurrency)}
+                  </div>
+                  {item.course.originalPrice && (
+                    <div className="text-xs text-muted-foreground line-through">
+                      {formatPrice(item.course.originalPrice, item.course.displayCurrency)}
+                    </div>
+                  )}
                 </div>
                 <button onClick={() => void removeItem(item.course.id)} className="p-2 text-muted-foreground hover:text-destructive transition-colors">
                   <Trash2 className="h-4 w-4" />
@@ -96,16 +103,20 @@ const Cart = () => {
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between text-muted-foreground">
                   <span>Subtotal ({items.length} items)</span>
-                  <span>${total().toFixed(2)}</span>
+                  <span>{formatPrice(total(), items[0]?.course.displayCurrency)}</span>
                 </div>
                 <div className="flex justify-between text-muted-foreground">
                   <span>Discount</span>
-                  <span className="text-secondary">-${items.reduce((sum, i) => sum + ((i.course.originalPrice || i.course.price) - i.course.price), 0).toFixed(2)}</span>
+                  <span className="text-secondary">
+                    -{formatPrice(items.reduce((sum, i) => sum + ((i.course.originalPrice || i.course.price) - i.course.price), 0), items[0]?.course.displayCurrency)}
+                  </span>
                 </div>
               </div>
               <div className="border-t border-border pt-3 flex justify-between items-center">
                 <span className="font-bold text-foreground">Total</span>
-                <span className="text-2xl font-bold text-foreground">${total().toFixed(2)}</span>
+                <span className="text-2xl font-bold text-foreground">
+                  {formatPrice(total(), items[0]?.course.displayCurrency)}
+                </span>
               </div>
               <Link to="/checkout">
                 <Button className="w-full bg-accent text-accent-foreground hover:bg-accent/90 font-semibold gap-2" size="lg">

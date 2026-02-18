@@ -5,6 +5,7 @@ import { useCartStore } from '@/lib/cart-store';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import { formatPrice } from '@/lib/utils';
 
 interface CourseCardProps {
   course: Course;
@@ -84,9 +85,13 @@ const CourseCard = ({ course, index = 0, isEnrolled = false }: CourseCardProps) 
 
         <div className="mt-auto flex items-center justify-between">
           <div className="flex items-baseline gap-2">
-            <span className="text-xl font-bold text-foreground">${course.price}</span>
+            <span className="text-xl font-bold text-foreground">
+              {formatPrice(course.displayPrice ?? course.price, course.displayCurrency)}
+            </span>
             {course.originalPrice && (
-              <span className="text-sm text-muted-foreground line-through">${course.originalPrice}</span>
+              <span className="text-sm text-muted-foreground line-through">
+                {formatPrice(course.originalPrice, course.displayCurrency)}
+              </span>
             )}
           </div>
           {isEnrolled ? (

@@ -9,6 +9,7 @@ import { motion } from 'framer-motion';
 import { Course, CurriculumSection } from '@/lib/types';
 import { getCourseCurriculum, getCourseDetails } from '@/lib/api';
 import { useEnrollmentCheck } from '@/hooks/use-enrollment';
+import { formatPrice } from '@/lib/utils';
 
 const CourseDetail = () => {
   const { id } = useParams();
@@ -180,9 +181,13 @@ const CourseDetail = () => {
           <div>
             <div className="sticky top-24 bg-card rounded-xl p-6 card-shadow space-y-5">
               <div className="flex items-baseline gap-3">
-                <span className="text-3xl font-bold text-foreground">${course.price}</span>
+                <span className="text-3xl font-bold text-foreground">
+                  {formatPrice(course.displayPrice ?? course.price, course.displayCurrency)}
+                </span>
                 {course.originalPrice && (
-                  <span className="text-lg text-muted-foreground line-through">${course.originalPrice}</span>
+                  <span className="text-lg text-muted-foreground line-through">
+                    {formatPrice(course.originalPrice, course.displayCurrency)}
+                  </span>
                 )}
               </div>
 

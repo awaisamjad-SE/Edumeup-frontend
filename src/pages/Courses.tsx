@@ -49,7 +49,9 @@ const Courses = () => {
           setCourses(data);
         }
       } catch (err) {
-        setError('Unable to load courses right now.');
+        console.error('Failed to load courses:', err);
+        const errorMsg = err instanceof Error ? err.message : 'Unable to load courses right now.';
+        setError(errorMsg);
       } finally {
         setLoading(false);
       }
